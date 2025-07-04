@@ -1,10 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-layout">
+
+
+  <aside class="sidebar">
+    <div class="list-header">Categories</div>
+    <ul class="categories">
+      <li>
+        <a href="{% url 'product_list' %}" class="{% if not selected_category %}active{% endif %}">All</a>
+      </li>
+      {% for key, label in category_choices %}
+        <li>
+          <a href="?category={{ key }}" class="{% if selected_category == key %}active{% endif %}">
+            {{ label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+
+  <section class="product-grid">
+    {% for product in products %}
+      <div class="product-card">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+          <img src="{% static 'images/default_product.png' %}" alt="{{ product.name }}">
+        {% endif %}
+        <h3>{{ product.name }}</h3>
+        <p><strong>${{ product.price }}</strong></p>
+        <form method="post" action="{% url 'add_to_cart' product.id %}">
+          {% csrf_token %}
+          <input type="number" name="quantity" value="1" min="1">
+          <button type="submit">Add to Cart</button>
+        </form>
+      </div>
+    {% endfor %}
+  </section>
+
+</div>
+{% endblock %}

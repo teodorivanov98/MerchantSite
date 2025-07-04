@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-outer">
+    <div class="dashboard-card">
+        <h2>Welcome back, <span class="username">{{ user.username|capfirst }}</span>!</h2>
+        <p class="dashboard-subtitle">What would you like to do today?</p>
+
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <div class="dashboard-actions">
+            <a href="{% url 'profile' %}" class="btn btn-primary">
+                <span class="dashboard-icon"><i class="fas fa-user"></i></span>
+                <span>View Profile</span>
+            </a>
+            <a href="{% url 'product_list' %}" class="btn btn-primary">
+                <span class="dashboard-icon"><i class="fas fa-store"></i></span>
+                <span>Browse Products</span>
+            </a>
+            <a href="{% url 'cart' %}" class="btn btn-primary">
+                <span class="dashboard-icon"><i class="fas fa-shopping-cart"></i></span>
+                <span>Go to Cart</span>
+            </a>
+
+            <a href="{% url 'order_history' %}" class="btn btn-primary">
+                <span class="dashboard-icon"><i class="fas fa-history"></i></span>
+                <span>Order History</span>
+            </a>
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,10 +1,56 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beverage Merchant</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-$END$
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'product_list' %}">BeverageMerchant</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'product_list' %}">Products</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'account_home' %}">Dashboard</a></li>
+                        <li><a href="{% url 'cart' %}">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">
+                                {% if cart_count %}{{ cart_count }}{% else %}0{% endif %}
+                            </span>
+                        </a></li>
+                        <li>
+                            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background:none;border:none;color:white;cursor:pointer;">Logout</button>
+                            </form>
+                        </li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 BeverageMerchant. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

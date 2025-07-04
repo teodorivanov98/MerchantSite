@@ -1,23 +1,43 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<h2>Your Order History</h2>
-{% if orders %}
-  <ul>
-    {% for order in orders %}
-      <li>
-        <strong>Order #{{ order.id }}</strong> – {{ order.created_at|date:"SHORT_DATE_FORMAT" }}
-        <ul>
-          {% for item in order.items.all %}
-            <li>{{ item.quantity }} x {{ item.product.name }} @ ${{ item.price }}</li>
-          {% endfor %}
-        </ul>
-        <p><strong>Total:</strong> ${{ order.items.all|sum:"total_price" }}</p>
-        <hr>
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>You haven't placed any orders yet.</p>
-{% endif %}
+<div class="profile-outer">
+    <div class="profile-card">
+        <h2>Your Orders</h2>
+        {% if orders_with_totals %}
+            <ul class="order-history-list" style="padding-left: 0;">
+                {% for entry in orders_with_totals %}
+                    <li style="margin-bottom: 32px; list-style: none;">
+                        <div style="font-weight: bold; margin-bottom: 6px;">
+                            Order #{{ entry.order.id }} – {{ entry.order.created_at|date:"SHORT_DATE_FORMAT" }}
+                        </div>
+                        <table style="width:100%; border-collapse:collapse; margin-bottom:10px;">
+                            <thead>
+                                <tr style="background: var(--light-color);">
+                                    <th style="text-align:left; padding: 6px;">Product</th>
+                                    <th style="text-align:center; padding: 6px;">Quantity</th>
+                                    <th style="text-align:right; padding: 6px;">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in entry.order.items.all %}
+                                <tr>
+                                    <td style="padding: 6px;">{{ item.product.name }}</td>
+                                    <td style="text-align:center; padding: 6px;">{{ item.quantity }}</td>
+                                    <td style="text-align:right; padding: 6px;">${{ item.price }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div style="text-align: right; font-weight: bold;">
+                            Total: ${{ entry.total }}
+                        </div>
+                        <hr>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No orders yet.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

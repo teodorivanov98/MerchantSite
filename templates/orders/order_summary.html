@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block content %}
+<h2>Order Summary</h2>
+<p>Order ID: {{ order.id }}</p>
+<p>Date: {{ order.created_at }}</p>
+
+<ul>
+    {% for item in order.items.all %}
+        <li>{{ item.product.name }} - {{ item.quantity }} x ${{ item.price }}</li>
+    {% endfor %}
+</ul>
+
+<p><strong>Total: ${{ total }}</strong></p>
+{% endblock %}
