@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Order History</h2>
+{% if orders %}
+  <ul>
+    {% for order in orders %}
+      <li>
+        <strong>Order #{{ order.id }}</strong> – {{ order.created_at|date:"SHORT_DATE_FORMAT" }}
+        <ul>
+          {% for item in order.items.all %}
+            <li>{{ item.quantity }} x {{ item.product.name }} @ ${{ item.price }}</li>
+          {% endfor %}
+        </ul>
+        <p><strong>Total:</strong> ${{ order.items.all|sum:"total_price" }}</p>
+        <hr>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>You haven't placed any orders yet.</p>
+{% endif %}
+{% endblock %}
