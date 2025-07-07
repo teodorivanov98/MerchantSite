@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: MerchantSite
+    env: python
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn merchantsite.wsgi
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: MerchantSite.settings
+      - key: PYTHON_VERSION
+        value: 3.13.4
+      - key: SECRET_KEY
+        value: your-secret-key-here
+      - key: ALLOWED_HOSTS
+        value: your-render-subdomain.onrender.com
+    runtime: 
