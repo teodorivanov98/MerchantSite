@@ -1,4 +1,3 @@
-
 services:
   - type: web
     name: MerchantSite
@@ -12,6 +11,8 @@ services:
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: MerchantSite.settings
+      - key: PYTHON_VERSION
+        value: 3.13.4
       - key: SECRET_KEY
         value: your-very-secret-key
       - key: DEBUG
