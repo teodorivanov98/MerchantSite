@@ -1,6 +1,7 @@
+
 services:
   - type: web
-    name: merchantsite
+    name: MerchantSite
     env: python
     region: oregon
     buildCommand: |
@@ -11,8 +12,6 @@ services:
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: MerchantSite.settings
-      - key: PYTHON_VERSION
-        value: 3.13.4
       - key: SECRET_KEY
         value: your-very-secret-key
       - key: DEBUG
@@ -22,4 +21,4 @@ services:
       - key: EMAIL_USER
         value: your_gmail_address@gmail.com
       - key: EMAIL_PASS
-        value: your_app_password
+        value: your_gmail_app_password
