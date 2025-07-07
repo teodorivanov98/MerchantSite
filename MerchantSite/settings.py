@@ -5,8 +5,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-dev-secret-key')
 DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
-ALLOWED_HOSTS = [host.strip() for host in os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')]
 
+
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'merchantsite.onrender.com',
+    'teodor-ivanov.onrender.com',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',

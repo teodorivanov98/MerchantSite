@@ -17,8 +17,6 @@ services:
         value: your-very-secret-key
       - key: DEBUG
         value: false
-      - key: ALLOWED_HOSTS
-        value: merchantsite.onrender.com
       - key: EMAIL_USER
         value: your_gmail_address@gmail.com
       - key: EMAIL_PASS
