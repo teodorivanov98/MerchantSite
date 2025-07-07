@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-dev-secret-key')
 DEBUG = os.getenv('DEBUG', 'true').lower() == 'true'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost', 'merchantsite.onrender.com').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
