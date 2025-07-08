@@ -3,12 +3,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# SECURITY
 SECRET_KEY = os.getenv('SECRET_KEY', 'unsafe-dev-key')
-
-
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
@@ -16,6 +13,7 @@ ALLOWED_HOSTS = [
     'teodor-ivanov.onrender.com',
 ]
 
+# APPS
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,9 +27,10 @@ INSTALLED_APPS = [
     'orders',
 ]
 
+# MIDDLEWARE
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Serve static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -40,6 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL CONFIG
 ROOT_URLCONF = 'MerchantSite.urls'
 
 TEMPLATES = [
@@ -60,6 +60,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MerchantSite.wsgi.application'
 
+# DATABASE
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -67,6 +68,7 @@ DATABASES = {
     }
 }
 
+# PASSWORD VALIDATION
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -74,40 +76,27 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
+# INTERNATIONALIZATION
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-
+# STATIC FILES
 STATIC_URL = '/static/'
-
-
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
-
-
+STATICFILES_DIRS = [BASE_DIR / 'static']  # Dev static files
+STATIC_ROOT = BASE_DIR / 'staticfiles'    # Collected static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
+# MEDIA FILES
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# LOGIN / LOGOUT
 LOGIN_REDIRECT_URL = 'product_list'
 LOGOUT_REDIRECT_URL = 'login'
 
-
+# EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -115,3 +104,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_USER', 'your_gmail_address@gmail.com')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS', 'your_gmail_app_password')
 DEFAULT_FROM_EMAIL = f'BeverageMerchant <{EMAIL_HOST_USER}>'
+
+# AUTO FIELD
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
