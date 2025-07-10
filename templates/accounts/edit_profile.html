@@ -11,6 +11,14 @@
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
+                <th>First Name</th>               <!-- ✅ ADDED -->
+                <td><input type="text" name="first_name" value="{{ user.first_name }}"></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>                <!-- ✅ ADDED -->
+                <td><input type="text" name="last_name" value="{{ user.last_name }}"></td>
+            </tr>
+            <tr>
                 <th>{{ form.email.label }}</th>
                 <td>{{ form.email }}</td>
             </tr>

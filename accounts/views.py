@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -20,12 +19,15 @@ def register(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.email = form.cleaned_data['email']
+            user.first_name = form.cleaned_data['first_name']  # ✅ Save first name
+            user.last_name = form.cleaned_data['last_name']    # ✅ Save last name
             user.save()
 
             profile = user.userprofile
             profile.company_name = form.cleaned_data['company_name']
             profile.id_number = form.cleaned_data['identification_number']
             profile.save()
+
             login(request, user)
             return redirect('product_list')
     else:
@@ -40,8 +42,12 @@ def edit_profile(request):
         if form.is_valid():
             profile = form.save()
 
-            request.user.email = form.cleaned_data['email']
-            request.user.save()
+            user = request.user
+            user.email = form.cleaned_data['email']
+            user.first_name = request.POST.get('first_name')
+            user.last_name = request.POST.get('last_name')
+            user.save()
+
             return redirect('profile')
     else:
         form = UserProfileForm(instance=profile, user=request.user)
