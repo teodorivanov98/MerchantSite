@@ -104,27 +104,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_USER', 'your_gmail_address@gmail.com')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS', 'your_gmail_app_password')
 DEFAULT_FROM_EMAIL = f'BeverageMerchant <{EMAIL_HOST_USER}>'
+PASSWORD_RESET_EMAIL_TEMPLATE_NAME = 'registration/password_reset_email.html'\
 
 # AUTO FIELD
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-import logging
-
-LOGGING = {
-    'version': 1,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-        'django.core.mail': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-    },
-}
