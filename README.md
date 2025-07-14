@@ -2,7 +2,7 @@
 
 A Django-powered e-commerce site for browsing, selecting, and ordering beverages — both alcoholic and non-alcoholic.
 
-🌐 **Live Demo:** [Visit Site on Render](https://teodor-ivanov.onrender.com)
+🌐 **Live Demo:** [Visit Site on Render](https://merchantsite.onrender.com/))
 
 ---
 
